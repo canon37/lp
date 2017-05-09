@@ -13,11 +13,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class KafkaDataCleaner extends BaseRichBolt {
-	private static final long	serialVersionUID	= -1041342737125400417L;
+	private static final long serialVersionUID = -1041342737125400417L;
 	
-	private OutputCollector		collector;
+	private OutputCollector collector;
 	
-	public static final Logger	log					= LoggerFactory.getLogger(KafkaDataProcessor.class);
+	public static final Logger log = LoggerFactory.getLogger(KafkaDataProcessor.class);
 	
 	@SuppressWarnings("rawtypes")
 	public void prepare(Map stormConf, TopologyContext context, OutputCollector collector) {

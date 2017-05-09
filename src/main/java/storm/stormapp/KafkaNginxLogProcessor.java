@@ -24,17 +24,17 @@ import com.zuipin.util.StringUtil;
  * @Description: KafkaNginxLogProcessor
  */
 public class KafkaNginxLogProcessor extends BaseRichBolt {
-	private static final long	serialVersionUID	= -3572830893934548392L;
+	private static final long serialVersionUID = -3572830893934548392L;
 	
-	private OutputCollector		collector;
+	private OutputCollector collector;
 	
-	private static String		sql					= "insert into nginx_log(log_date,ip,user_agent,host_name,request,request_body) values(?,?,?,?,?,?)";
+	private static String sql = "insert into nginx_log(log_date,ip,user_agent,host_name,request,request_body) values(?,?,?,?,?,?)";
 	
-	private BasicDataSource		dataSource;
+	private BasicDataSource dataSource;
 	
-	public static final Logger	log					= LoggerFactory.getLogger(KafkaNginxLogProcessor.class);
+	public static final Logger log = LoggerFactory.getLogger(KafkaNginxLogProcessor.class);
 	
-	public static Pattern		pattern				= Pattern.compile("^[A-Za-z0-9_]{1,}.[a-zA-Z_]{1,}.(cn|com)$");
+	public static Pattern pattern = Pattern.compile("^[A-Za-z0-9_]{1,}.[a-zA-Z_]{1,}.(cn|com)$");
 	
 	@SuppressWarnings("rawtypes")
 	public void prepare(Map stormConf, TopologyContext context, OutputCollector collector) {

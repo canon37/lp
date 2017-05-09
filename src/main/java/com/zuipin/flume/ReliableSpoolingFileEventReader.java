@@ -52,35 +52,35 @@ import com.google.common.base.Preconditions;
  */
 public class ReliableSpoolingFileEventReader implements ReliableEventReader {
 	
-	private static final Logger		logger				= LoggerFactory.getLogger(ReliableSpoolingFileEventReader.class);
+	private static final Logger logger = LoggerFactory.getLogger(ReliableSpoolingFileEventReader.class);
 	
-	static final String				metaFileName		= ".flumespool-main.meta";
-	private final File				spoolDirectory;
-	private final String			completedSuffix;
-	private final String			deserializerType;
-	private final Context			deserializerContext;
-	private final Pattern			includePattern;
-	private final Pattern			ignorePattern;
-	private final File				metaFile;
-	private final boolean			annotateFileName;
-	private final boolean			annotateBaseName;
-	private final String			fileNameHeader;
-	private final String			baseNameHeader;
-	private final String			deletePolicy;
-	private final Charset			inputCharset;
+	static final String metaFileName = ".flumespool-main.meta";
+	private final File spoolDirectory;
+	private final String completedSuffix;
+	private final String deserializerType;
+	private final Context deserializerContext;
+	private final Pattern includePattern;
+	private final Pattern ignorePattern;
+	private final File metaFile;
+	private final boolean annotateFileName;
+	private final boolean annotateBaseName;
+	private final String fileNameHeader;
+	private final String baseNameHeader;
+	private final String deletePolicy;
+	private final Charset inputCharset;
 	private final DecodeErrorPolicy	decodeErrorPolicy;
-	private final ConsumeOrder		consumeOrder;
-	private final boolean			recursiveDirectorySearch;
+	private final ConsumeOrder consumeOrder;
+	private final boolean recursiveDirectorySearch;
 	
-	private Optional<FileInfo>		currentFile			= Optional.absent();
+	private Optional<FileInfo> currentFile = Optional.absent();
 	/** Always contains the last file from which lines have been read. */
-	private Optional<FileInfo>		lastFileRead		= Optional.absent();
-	private boolean					committed			= true;
-	private boolean					firstTimeRead		= true;
+	private Optional<FileInfo> lastFileRead = Optional.absent();
+	private boolean committed = true;
+	private boolean firstTimeRead = true;
 	
 	/** Instance var to Cache directory listing */
-	private Iterator<File>			candidateFileIter	= null;
-	private int						listFilesCount		= 0;
+	private Iterator<File> candidateFileIter = null;
+	private int listFilesCount = 0;
 	
 	/**
 	 * Create a ReliableSpoolingFileEventReader to watch the given directory.
@@ -531,9 +531,9 @@ public class ReliableSpoolingFileEventReader implements ReliableEventReader {
 	 * An immutable class with information about a file being processed.
 	 */
 	private static class FileInfo {
-		private final File				file;
+		private final File file;
 		private final EventDeserializer	deserializer;
-		private final long				expire;
+		private final long expire;
 		
 		public FileInfo(File file, EventDeserializer deserializer, long expire) {
 			this.file = file;
@@ -564,23 +564,22 @@ public class ReliableSpoolingFileEventReader implements ReliableEventReader {
 	 * Special builder class for ReliableSpoolingFileEventReader
 	 */
 	public static class Builder {
-		private File				spoolDirectory;
-		private String				completedSuffix				= SpoolDirectorySourceConfigurationConstants.SPOOLED_FILE_SUFFIX;
-		private String				includePattern				= SpoolDirectorySourceConfigurationConstants.DEFAULT_INCLUDE_PAT;
-		private String				ignorePattern				= SpoolDirectorySourceConfigurationConstants.DEFAULT_IGNORE_PAT;
-		private String				trackerDirPath				= SpoolDirectorySourceConfigurationConstants.DEFAULT_TRACKER_DIR;
-		private Boolean				annotateFileName			= SpoolDirectorySourceConfigurationConstants.DEFAULT_FILE_HEADER;
-		private String				fileNameHeader				= SpoolDirectorySourceConfigurationConstants.DEFAULT_FILENAME_HEADER_KEY;
-		private Boolean				annotateBaseName			= SpoolDirectorySourceConfigurationConstants.DEFAULT_BASENAME_HEADER;
-		private String				baseNameHeader				= SpoolDirectorySourceConfigurationConstants.DEFAULT_BASENAME_HEADER_KEY;
-		private String				deserializerType			= SpoolDirectorySourceConfigurationConstants.DEFAULT_DESERIALIZER;
-		private Context				deserializerContext			= new Context();
-		private String				deletePolicy				= SpoolDirectorySourceConfigurationConstants.DEFAULT_DELETE_POLICY;
-		private String				inputCharset				= SpoolDirectorySourceConfigurationConstants.DEFAULT_INPUT_CHARSET;
-		private DecodeErrorPolicy	decodeErrorPolicy			= DecodeErrorPolicy
-				.valueOf(SpoolDirectorySourceConfigurationConstants.DEFAULT_DECODE_ERROR_POLICY.toUpperCase(Locale.ENGLISH));
-		private ConsumeOrder		consumeOrder				= SpoolDirectorySourceConfigurationConstants.DEFAULT_CONSUME_ORDER;
-		private boolean				recursiveDirectorySearch	= SpoolDirectorySourceConfigurationConstants.DEFAULT_RECURSIVE_DIRECTORY_SEARCH;
+		private File spoolDirectory;
+		private String completedSuffix = SpoolDirectorySourceConfigurationConstants.SPOOLED_FILE_SUFFIX;
+		private String includePattern = SpoolDirectorySourceConfigurationConstants.DEFAULT_INCLUDE_PAT;
+		private String ignorePattern = SpoolDirectorySourceConfigurationConstants.DEFAULT_IGNORE_PAT;
+		private String trackerDirPath = SpoolDirectorySourceConfigurationConstants.DEFAULT_TRACKER_DIR;
+		private Boolean annotateFileName = SpoolDirectorySourceConfigurationConstants.DEFAULT_FILE_HEADER;
+		private String fileNameHeader = SpoolDirectorySourceConfigurationConstants.DEFAULT_FILENAME_HEADER_KEY;
+		private Boolean annotateBaseName = SpoolDirectorySourceConfigurationConstants.DEFAULT_BASENAME_HEADER;
+		private String baseNameHeader = SpoolDirectorySourceConfigurationConstants.DEFAULT_BASENAME_HEADER_KEY;
+		private String deserializerType = SpoolDirectorySourceConfigurationConstants.DEFAULT_DESERIALIZER;
+		private Context deserializerContext = new Context();
+		private String deletePolicy = SpoolDirectorySourceConfigurationConstants.DEFAULT_DELETE_POLICY;
+		private String inputCharset = SpoolDirectorySourceConfigurationConstants.DEFAULT_INPUT_CHARSET;
+		private DecodeErrorPolicy decodeErrorPolicy = DecodeErrorPolicy.valueOf(SpoolDirectorySourceConfigurationConstants.DEFAULT_DECODE_ERROR_POLICY.toUpperCase(Locale.ENGLISH));
+		private ConsumeOrder consumeOrder = SpoolDirectorySourceConfigurationConstants.DEFAULT_CONSUME_ORDER;
+		private boolean recursiveDirectorySearch = SpoolDirectorySourceConfigurationConstants.DEFAULT_RECURSIVE_DIRECTORY_SEARCH;
 		
 		public Builder spoolDirectory(File directory) {
 			this.spoolDirectory = directory;

@@ -73,36 +73,36 @@ import com.google.common.base.Throwables;
  */
 public class PoolDirectorySource extends AbstractSource implements Configurable, EventDrivenSource {
 	
-	private static final Logger			logger					= LoggerFactory.getLogger(PoolDirectorySource.class);
+	private static final Logger logger = LoggerFactory.getLogger(PoolDirectorySource.class);
 	
 	/* Config options */
-	private String						completedSuffix;
-	private String						spoolDirectory;
-	private boolean						fileHeader;
-	private String						fileHeaderKey;
-	private boolean						basenameHeader;
-	private String						basenameHeaderKey;
-	private int							batchSize;
-	private String						includePattern;
-	private String						ignorePattern;
-	private String						trackerDirPath;
-	private String						deserializerType;
-	private Context						deserializerContext;
-	private String						deletePolicy;
-	private String						inputCharset;
-	private DecodeErrorPolicy			decodeErrorPolicy;
-	private volatile boolean			hasFatalError			= false;
+	private String completedSuffix;
+	private String spoolDirectory;
+	private boolean fileHeader;
+	private String fileHeaderKey;
+	private boolean basenameHeader;
+	private String basenameHeaderKey;
+	private int batchSize;
+	private String includePattern;
+	private String ignorePattern;
+	private String trackerDirPath;
+	private String deserializerType;
+	private Context deserializerContext;
+	private String deletePolicy;
+	private String inputCharset;
+	private DecodeErrorPolicy decodeErrorPolicy;
+	private volatile boolean hasFatalError = false;
 	
-	private SourceCounter				sourceCounter;
-	ReliableSpoolingFileEventReader		reader;
-	private ScheduledExecutorService	executor;
-	private boolean						backoff					= true;
-	private boolean						hitChannelException		= false;
-	private boolean						hitChannelFullException	= false;
-	private int							maxBackoff;
-	private ConsumeOrder				consumeOrder;
-	private int							pollDelay;
-	private boolean						recursiveDirectorySearch;
+	private SourceCounter sourceCounter;
+	ReliableSpoolingFileEventReader reader;
+	private ScheduledExecutorService executor;
+	private boolean backoff = true;
+	private boolean hitChannelException = false;
+	private boolean hitChannelFullException	= false;
+	private int maxBackoff;
+	private ConsumeOrder consumeOrder;
+	private int pollDelay;
+	private boolean recursiveDirectorySearch;
 	
 	@Override
 	public synchronized void start() {
